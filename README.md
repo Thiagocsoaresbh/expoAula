@@ -48,3 +48,9 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+```bash
+npx expo start --tunnel
+```
+
+Caso dê erro para iniciar, tal como : There was a problem running...
