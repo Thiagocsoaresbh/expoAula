@@ -7,7 +7,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 // Importa o componente Cartao que criamos na pasta components
 // Ele vai ser reutilizado para exibir as informações de cada usuário
-import { Cartao } from '../../components/Cartao';
+import { Cartao } from '../../components/cartao';
 
 // Cria e exporta a tela de Usuários como função
 // O "export default" faz com que o Expo Router reconheça isso como uma tela
