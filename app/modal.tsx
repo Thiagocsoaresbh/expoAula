@@ -1,52 +1,74 @@
-// Importa o Link do Expo Router — usado para navegar entre telas de forma declarativa (via JSX)
-// É diferente do useRouter (que navega via código/função)
-import { Link } from 'expo-router';
+// Importa useRouter para navegar entre telas via código
+import { useRouter } from 'expo-router';
 
-// Importa o StyleSheet para criar os estilos da tela
-import { StyleSheet } from 'react-native';
+// Importa os componentes básicos do React Native
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-// ThemedText é um componente de texto que adapta a cor automaticamente ao tema (claro/escuro)
-import { ThemedText } from '@/components/themed-text';
-
-// ThemedView é um container (View) que adapta a cor de fundo automaticamente ao tema
-import { ThemedView } from '@/components/themed-view';
-
-// Essa tela é aberta como um MODAL DE ROTA pelo Expo Router
-// Diferente do componente <Modal> do React Native (que aparece por cima da mesma tela),
-// esse modal é uma tela separada acessada via navegação, ex: router.push('/modal')
+// Essa tela é aberta como MODAL DE ROTA pelo Expo Router
+// É diferente do <Modal> componente do React Native usado no explore.tsx:
+//   → <Modal> aparece por cima da tela atual, sem trocar de rota
+//   → Esta tela aqui é uma rota separada aberta via router.push('/modal')
 export default function ModalScreen() {
+  const router = useRouter();
+
   return (
+    <View style={styles.container}>
 
-    // ThemedView como container principal da tela
-    <ThemedView style={styles.container}>
+      <Text style={styles.titulo}>Modal de Rota</Text>
 
-      {/* Texto de título — o "type" define o estilo pré-configurado do ThemedText */}
-      <ThemedText type="title">Este é um modal</ThemedText>
+      <Text style={styles.descricao}>
+        Este modal foi aberto via{' '}
+        <Text style={styles.destaque}>router.push('/modal')</Text>
+        {' '}a partir da tela Home.{'\n\n'}
+        É uma tela separada — diferente do componente{' '}
+        <Text style={styles.destaque}>&lt;Modal&gt;</Text>
+        {' '}do React Native, que aparece por cima da mesma tela sem trocar de rota.
+      </Text>
 
-      {/* Link para voltar à tela inicial
-          "dismissTo" fecha o modal e volta para a rota "/" sem empilhar no histórico */}
-      <Link href="/" dismissTo style={styles.link}>
-        <ThemedText type="link">Ir para a tela inicial</ThemedText>
-      </Link>
+      {/* router.back() volta para a tela anterior sem empilhar no histórico */}
+      <Pressable style={styles.botao} onPress={() => router.back()}>
+        <Text style={styles.textoBotao}>Voltar</Text>
+      </Pressable>
 
-    </ThemedView>
+    </View>
   );
 }
 
-// Estilos da tela
 const styles = StyleSheet.create({
-
-  // Container principal centralizado
   container: {
-    flex: 1,              // ocupa toda a tela
-    alignItems: 'center',    // centraliza horizontalmente
-    justifyContent: 'center', // centraliza verticalmente
-    padding: 20,          // espaçamento interno
+    flex: 1,
+    backgroundColor: '#eaf2ff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 28,
   },
-
-  // Estilo do link de retorno
-  link: {
-    marginTop: 15,       // espaço acima do link
-    paddingVertical: 15, // área de toque maior (facilita clicar)
+  titulo: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#1e3a5f',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  descricao: {
+    fontSize: 15,
+    color: '#4b5563',
+    lineHeight: 24,
+    textAlign: 'center',
+    marginBottom: 32,
+  },
+  destaque: {
+    fontWeight: 'bold',
+    color: '#2563eb',
+  },
+  botao: {
+    backgroundColor: '#2563eb',
+    paddingVertical: 14,
+    paddingHorizontal: 40,
+    borderRadius: 12,
+  },
+  textoBotao: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

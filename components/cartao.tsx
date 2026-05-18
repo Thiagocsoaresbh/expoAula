@@ -1,125 +1,140 @@
-// Importa componentes do React Native
-// StyleSheet: usado para criar estilos organizados (como CSS)
-// Text: usado para exibir textos na tela
-// View: usado como container (equivalente a uma "div" no HTML)
+// ─────────────────────────────────────────────────────────────────────────────
+// FLUXO DE CONSTRUÇÃO — Componente Cartao
+// Este componente é construído em paralelo com a tela usuarios.tsx.
+// Construa este arquivo primeiro, depois volte para o Passo 3 em usuarios.tsx.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── PASSO 1 — Imports ────────────────────────────────────────────────────────
+
+// 1.1 Importa os componentes necessários do React Native
+//     StyleSheet → para criar os estilos do componente
+//     Text       → para exibir textos (nome, cargo, departamento, status)
+//     View       → container que estrutura o layout do card
 import { StyleSheet, Text, View } from 'react-native';
 
-// Define o tipo das propriedades que o componente vai receber
-// Isso é TypeScript garantindo que os dados tenham o formato correto
+// ── PASSO 2 — Tipo das propriedades (TypeScript) ──────────────────────────────
+
+// 2.1 Define o "contrato" de dados que o componente aceita
+//     Isso é TypeScript: garante que quem usar o Cartao passe os dados certos
+//     Se faltar uma prop ou o tipo estiver errado, o editor já avisa antes de rodar
 type CartaoProps = {
-  nome: string;          // nome da pessoa (texto)
-  cargo: string;         // cargo da pessoa (texto)
-  departamento: string;  // departamento da pessoa (texto)
-  ativo: boolean;        // status da pessoa (true = ativo, false = inativo)
+  nome: string;          // 2.2 nome da pessoa — deve ser sempre um texto
+  cargo: string;         // 2.3 cargo da pessoa — deve ser sempre um texto
+  departamento: string;  // 2.4 departamento — deve ser sempre um texto
+  ativo: boolean;        // 2.5 status — deve ser true (ativo) ou false (inativo)
 };
 
-// Criação do componente Cartao
-// Ele recebe as propriedades definidas acima
+// ── PASSO 3 — Componente ─────────────────────────────────────────────────────
+
+// 3.1 Cria o componente Cartao
+//     Recebe as props via desestruturação: { nome, cargo, departamento, ativo }
+//     "export" permite que outros arquivos importem e usem esse componente
+//     → Este componente é chamado em usuarios.tsx no Passo 3.7
 export function Cartao({ nome, cargo, departamento, ativo }: CartaoProps) {
   return (
-    // View principal do cartão (container geral)
+
+    // 3.2 View principal — o card em si (container de tudo)
     <View style={styles.cartao}>
 
-      {/* Linha superior: nome + badge de status */}
+      {/* 3.3 Linha do topo: nome à esquerda + badge de status à direita
+               flexDirection: 'row' organiza os filhos lado a lado (horizontal) */}
       <View style={styles.header}>
 
-        {/* Exibe o nome recebido como propriedade */}
+        {/* 3.4 Exibe o nome recebido via prop */}
         <Text style={styles.nome}>{nome}</Text>
 
-        {/* View do badge (etiqueta de status)
-            Se ativo for true, usa estilo verde
-            Se for false, usa estilo cinza */}
+        {/* 3.5 Badge de status — muda de estilo conforme o valor de "ativo"
+                 Se ativo = true  → usa estilo verde  (badgeAtivo)
+                 Se ativo = false → usa estilo cinza  (badgeInativo)
+                 Isso é uma expressão ternária: condição ? valorSeVerdadeiro : valorSeFalso */}
         <View style={ativo ? styles.badgeAtivo : styles.badgeInativo}>
 
-          {/* Texto dentro do badge
-              Também muda conforme o status */}
+          {/* 3.6 Texto do badge — também muda conforme o status */}
           <Text style={ativo ? styles.badgeTextoAtivo : styles.badgeTextoInativo}>
-            {/* Condição:
-                Se ativo = true → mostra "Ativo"
-                Se ativo = false → mostra "Inativo" */}
             {ativo ? 'Ativo' : 'Inativo'}
           </Text>
 
         </View>
       </View>
 
-      {/* Exibe o cargo da pessoa */}
+      {/* 3.7 Exibe o cargo recebido via prop */}
       <Text style={styles.cargo}>{cargo}</Text>
 
-      {/* Exibe o departamento da pessoa */}
+      {/* 3.8 Exibe o departamento recebido via prop */}
       <Text style={styles.departamento}>{departamento}</Text>
 
     </View>
   );
 }
 
-// Criação dos estilos do componente
+// ── PASSO 4 — Estilos ────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
 
-  // Estilo do container principal (cartão)
+  // 4.1 Estilo do card (container principal)
   cartao: {
-    backgroundColor: '#fff',      // fundo branco
-    borderRadius: 12,             // bordas arredondadas
-    padding: 16,                  // espaçamento interno
-    marginBottom: 12,             // espaço abaixo do cartão
-    borderWidth: 1,               // largura da borda
-    borderColor: '#e0e0e0',       // cor da borda
+    backgroundColor: '#fff',  // fundo branco
+    borderRadius: 12,          // bordas arredondadas
+    padding: 16,               // espaçamento interno
+    marginBottom: 12,          // espaço abaixo de cada card (separa os itens da lista)
+    borderWidth: 1,            // espessura da borda
+    borderColor: '#e0e0e0',    // cor da borda (cinza claro)
   },
 
-  // Estilo da linha superior (nome + badge)
+  // 4.2 Linha superior do card (nome + badge)
   header: {
-    flexDirection: 'row',           // organiza elementos na horizontal
-    justifyContent: 'space-between', // separa nome e badge nas extremidades
-    alignItems: 'center',           // alinha verticalmente no centro
-    marginBottom: 4,                // espaço abaixo da linha
+    flexDirection: 'row',            // organiza os filhos na horizontal
+    justifyContent: 'space-between', // empurra nome para a esquerda e badge para a direita
+    alignItems: 'center',            // alinha verticalmente no centro
+    marginBottom: 4,
   },
 
-  // Estilo do nome
+  // 4.3 Estilo do nome
   nome: {
-    fontSize: 16,        // tamanho da fonte
-    fontWeight: '600',   // peso da fonte (semi-negrito)
-    color: '#1a1a1a',    // cor do texto
+    fontSize: 16,
+    fontWeight: '600', // semi-negrito
+    color: '#1a1a1a',
   },
 
-  // Estilo do cargo
+  // 4.4 Estilo do cargo
   cargo: {
-    fontSize: 14,        // fonte menor que o nome
-    color: '#666',       // cor cinza
-    marginTop: 4,        // espaço acima
+    fontSize: 14,
+    color: '#666',
+    marginTop: 4,
   },
 
-  // Estilo do departamento
+  // 4.5 Estilo do departamento
   departamento: {
-    fontSize: 13,        // fonte ainda menor
-    color: '#378ADD',    // cor azul
-    marginTop: 6,        // espaço acima
-    fontWeight: '500',   // leve destaque
+    fontSize: 13,
+    color: '#378ADD', // azul
+    marginTop: 6,
+    fontWeight: '500',
   },
 
-  // Estilo do badge quando ATIVO (verde)
+  // 4.6 Badge ATIVO (verde)
   badgeAtivo: {
     backgroundColor: '#E1F5EE', // fundo verde claro
-    borderRadius: 20,           // formato arredondado
-    paddingHorizontal: 10,      // espaço lateral interno
-    paddingVertical: 3,         // espaço vertical interno
-  },
-
-  // Estilo do texto do badge ATIVO
-  badgeTextoAtivo: {
-    fontSize: 11,        // fonte pequena
-    fontWeight: '600',   // semi-negrito
-    color: '#085041',    // verde escuro
-  },
-
-  // Estilo do badge quando INATIVO (cinza)
-  badgeInativo: {
-    backgroundColor: '#F1EFE8', // fundo cinza claro
-    borderRadius: 20,           // arredondado
+    borderRadius: 20,
     paddingHorizontal: 10,
     paddingVertical: 3,
   },
 
-  // Estilo do texto do badge INATIVO
+  // 4.7 Texto do badge ATIVO
+  badgeTextoAtivo: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#085041', // verde escuro
+  },
+
+  // 4.8 Badge INATIVO (cinza)
+  badgeInativo: {
+    backgroundColor: '#F1EFE8', // fundo cinza claro
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+  },
+
+  // 4.9 Texto do badge INATIVO
   badgeTextoInativo: {
     fontSize: 11,
     fontWeight: '600',
