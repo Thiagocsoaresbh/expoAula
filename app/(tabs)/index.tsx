@@ -1,185 +1,247 @@
-// useRouter é um hook do Expo Router que permite navegar entre telas via código (funções)
-// É diferente do <Link> que navega de forma declarativa (via JSX)
+// ─────────────────────────────────────────────────────────────────────────────
+// FLUXO DE CONSTRUÇÃO — Tela Home (index.tsx)
+// Siga os passos em ordem. Quando chegar no Passo 3, pause e construa
+// o componente BlocoAula.tsx antes de continuar para o Passo 4.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── PASSO 1 — Imports ────────────────────────────────────────────────────────
+
+// 1.1 useRouter → hook do Expo Router que permite navegar entre telas via código
 import { useRouter } from 'expo-router';
 
-// Importa os componentes visuais do React Native que usaremos nessa tela:
-// Pressable   → botão que detecta toques (mais flexível que o Button padrão)
-// ScrollView  → permite rolagem quando o conteúdo ultrapassa a altura da tela
-// StyleSheet  → organiza os estilos em um único objeto (como CSS)
-// Text        → exibe textos na tela
-// View        → container para organizar e agrupar elementos (como uma "div" no HTML)
+// 1.2 Componentes visuais do React Native usados nessa tela
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-// Importa o componente BlocoAula que criamos para exibir blocos educativos
-// Reutilizamos esse componente várias vezes com props diferentes
+// 1.3 Componente reutilizável que criamos para exibir blocos educativos
+//     ⚠ Antes de continuar para o Passo 4, veja o FLUXO DE CONSTRUÇÃO em:
+//     → components/BlocoAula.tsx (construído no Passo 3 abaixo)
 import { BlocoAula } from '../../components/BlocoAula';
 
-// Componente da tela Home (tela inicial do app)
+// ── PASSO 2 — Componente e navegação ─────────────────────────────────────────
+
+// 2.1 Cria e exporta a tela Home
 export default function HomeScreen() {
 
-  // Cria o objeto de navegação para podermos trocar de tela via funções
+  // 2.2 Hook de navegação — permite trocar de tela chamando funções
   const router = useRouter();
 
-  // Função que navega para a tela "Prática" (explore.tsx)
+  // 2.3 Navega para a tela Prática (explore.tsx)
   function irParaPratica() {
-    router.push('/explore'); // empurra a rota /explore para a pilha de navegação
+    router.push('/explore');
   }
 
-  // Função que abre o modal de rota (modal.tsx)
+  // 2.4 Abre o modal de rota (modal.tsx)
   function abrirModalDaRota() {
-    router.push('/modal'); // abre a tela modal.tsx como sobreposição
+    router.push('/modal');
   }
 
-  // O return define o que será exibido na tela
+  // 2.5 O return define tudo que será exibido visualmente na tela
   return (
 
-    // ScrollView permite que o conteúdo role caso seja maior que a tela
-    // style → estilo externo (fundo, ocupação de tela)
-    // contentContainerStyle → estilo do conteúdo interno (padding, alinhamento)
+    // 2.6 ScrollView com rolagem — necessário pois o conteúdo é longo
     <ScrollView style={styles.container} contentContainerStyle={styles.conteudo}>
 
-      {/* Card principal de apresentação da tela */}
-      <View style={styles.cardPrincipal}>
+      {/* ── CARD DO MÓDULO ──────────────────────────────────────────────── */}
 
-        {/* Emoji decorativo */}
-        <Text style={styles.emoji}>📱</Text>
+      {/* 2.7 Card de apresentação do módulo atual */}
+      <View style={styles.cardModulo}>
+        <Text style={styles.tagModulo}>Módulo em estudo</Text>
+        <Text style={styles.tituloModulo}>Persistência de Dados</Text>
+        <Text style={styles.subtituloModulo}>com React Native</Text>
+        <Text style={styles.autorModulo}>Prof. Denis Gonçalves Cople</Text>
+      </View>
 
-        {/* Título principal da tela */}
-        <Text style={styles.titulo}>Interface interativa de um aplicativo mobile</Text>
+      {/* ── PASSO 3 — Percebemos a repetição, hora de criar o componente ── */}
+      {/* 3.1 Usamos BlocoAula para cada seção do conteúdo introdutório     */}
+      {/* ⚠ PAUSE AQUI se ainda não criou → components/BlocoAula.tsx        */}
 
-        {/* Subtítulo explicativo */}
-        <Text style={styles.subtitulo}>
-          Antes de programar, precisamos planejar a interface, a navegação e a experiência do usuário.
-        </Text>
+      {/* ── PASSO 4 — Blocos de introdução do módulo ────────────────────── */}
 
-        {/* Botão primário — chama a função irParaPratica ao ser pressionado */}
+      {/* 4.1 Propósito do módulo */}
+      <BlocoAula
+        titulo="Propósito"
+        descricao="Ao final dos estudos, você deverá estar apto a construir aplicativos com persistência de dados, utilizando diversas metodologias: AsyncStorage, SQLite, Realm e MongoDB."
+      />
+
+      {/* 4.2 O que precisa estar instalado antes de começar */}
+      <BlocoAula
+        titulo="Preparação do ambiente"
+        descricao="É necessário ter instalado: JDK, Android Studio, VS Code, Node.js e MongoDB. Via NPM ou Yarn, instale react-native-cli e expo-cli. No celular, instale o aplicativo Expo."
+      />
+
+      {/* 4.3 O que será aprendido ao longo do módulo */}
+      <BlocoAula
+        titulo="Objetivos do módulo"
+        descricao="1. AsyncStorage → persistência local com chave-valor.&#10;2. SQLite → modelo relacional.&#10;3. Realm → modelo orientado a objetos.&#10;4. MongoDB → modelo NoSQL com armazenamento remoto."
+      />
+
+      {/* 4.4 Conceito de serialização */}
+      <BlocoAula
+        titulo="Serialização"
+        descricao="Serialização é transformar um objeto (espalhado na memória) em um formato contíguo para armazenar ou transmitir. No React Native usamos JSON — ex: JSON.stringify(objeto) para serializar e JSON.parse(texto) para de-serializar."
+      />
+
+      {/* 4.5 Conceito de persistência */}
+      <BlocoAula
+        titulo="Persistência"
+        descricao="Uma estrutura persistente é aquela capaz de guardar seu estado em meio não volátil (disco). No React Native, como o ambiente móvel exige operações assíncronas, usaremos async/await para não travar a interface."
+      />
+
+      {/* 4.6 O que é AsyncStorage */}
+      <BlocoAula
+        titulo="AsyncStorage"
+        descricao="É a forma mais simples de persistência no React Native. Funciona com pares chave-valor, parecido com uma chave primária num banco. Os objetos precisam ser serializados em JSON antes de serem guardados."
+      />
+
+      {/* 4.7 O que vamos construir na prática */}
+      <BlocoAula
+        titulo="O que vamos construir"
+        descricao="Um app de cadastro de produtos com: listagem (FlatList), formulário de inclusão (TextInput) e exclusão de itens. Os dados serão persistidos localmente via AsyncStorage — mesmo fechando o app, a lista é mantida."
+      />
+
+      {/* ── CARD DE NAVEGAÇÃO ────────────────────────────────────────────── */}
+
+      {/* 2.8 Card com botões de ação para navegar para outras telas */}
+      <View style={styles.cardAcoes}>
+        <Text style={styles.tituloAcoes}>Explore o projeto</Text>
+
+        {/* 2.9 Botão que navega para a tela de exemplos práticos */}
         <Pressable style={styles.botaoPrimario} onPress={irParaPratica}>
           <Text style={styles.textoBotaoPrimario}>Ver exemplos práticos</Text>
         </Pressable>
 
-        {/* Botão secundário — abre o modal de rota */}
+        {/* 2.10 Botão que abre o modal de rota */}
         <Pressable style={styles.botaoSecundario} onPress={abrirModalDaRota}>
           <Text style={styles.textoBotaoSecundario}>Abrir modal da rota</Text>
         </Pressable>
-
       </View>
-
-      {/* Blocos educativos — componente reutilizável que recebe "titulo" e "descricao" como props */}
-
-      <BlocoAula
-        titulo="1. Planejamento da interface"
-        descricao="Antes da codificação, definimos funcionalidades, telas, navegação e disposição visual dos elementos. Isso ajuda a organizar o projeto e melhorar a experiência do usuário."
-      />
-
-      <BlocoAula
-        titulo="2. Componentização"
-        descricao="Elementos repetidos, como headers, botões, cards e menus, devem ser transformados em componentes reutilizáveis. Isso deixa o código mais limpo, organizado e fácil de manter."
-      />
-
-      <BlocoAula
-        titulo="3. Organização com View"
-        descricao="A View funciona como container principal, semelhante a uma div no HTML. Ela ajuda a organizar blocos visuais e a distribuir melhor os elementos na tela."
-      />
-
-      <BlocoAula
-        titulo="4. Cuidados com boas práticas"
-        descricao="Não é recomendado aninhar Image dentro de Text. O ideal é usar View para estruturar os elementos visuais, deixando o layout mais correto e semântico."
-      />
-
-      <BlocoAula
-        titulo="5. Recursos da aula"
-        descricao="Nesta aula vamos trabalhar com ScrollView, SafeAreaView, Modal, Pressable e ActivityIndicator para construir interfaces mais completas e interativas."
-      />
 
     </ScrollView>
   );
 }
 
-// Todos os estilos da tela organizados com StyleSheet.create
+// ── PASSO 5 — Estilos ────────────────────────────────────────────────────────
+
 const styles = StyleSheet.create({
 
-  // Estilo do ScrollView (container externo)
+  // 5.1 Container externo com rolagem
   container: {
-    flex: 1,                   // ocupa toda a altura disponível da tela
-    backgroundColor: '#eaf2ff', // fundo azul bem claro
+    flex: 1,
+    backgroundColor: '#eaf2ff',
   },
 
-  // Estilo do conteúdo interno do ScrollView
+  // 5.2 Espaçamento interno do conteúdo
   conteudo: {
-    padding: 20,       // espaçamento interno em todos os lados
-    paddingBottom: 32, // espaço extra embaixo para não cortar o último bloco
+    padding: 20,
+    paddingBottom: 32,
   },
 
-  // Estilo do card principal de apresentação
-  cardPrincipal: {
-    backgroundColor: '#ffffff', // fundo branco
-    borderRadius: 22,           // bordas bem arredondadas
-    padding: 24,                // espaçamento interno
-    marginBottom: 20,           // espaço abaixo do card
-    alignItems: 'center',       // centraliza os filhos horizontalmente
-    // Sombra para iOS
+  // 5.3 Card do módulo em estudo (topo da tela)
+  cardModulo: {
+    backgroundColor: '#1e3a5f',  // azul escuro — destaque de módulo
+    borderRadius: 22,
+    padding: 28,
+    marginBottom: 20,
+    alignItems: 'center',
+  // Sombra iOS
     shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    // Sombra para Android
-    elevation: 4,
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    // Sombra Android
+    elevation: 6,
   },
 
-  // Estilo do emoji
-  emoji: {
-    fontSize: 46,      // tamanho grande para destaque
-    marginBottom: 14,  // espaço abaixo do emoji
-  },
-
-  // Estilo do título principal
-  titulo: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1e3a5f',    // azul escuro
-    textAlign: 'center', // centraliza o texto
+  // 5.4 Tag "Módulo em estudo"
+  tagModulo: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#93c5fd',           // azul claro
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
     marginBottom: 12,
   },
 
-  // Estilo do subtítulo
-  subtitulo: {
-    fontSize: 16,
-    color: '#4b5563',    // cinza médio
+  // 5.5 Título principal do módulo
+  tituloModulo: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#ffffff',
     textAlign: 'center',
-    lineHeight: 24,      // altura da linha (melhora a leitura)
-    marginBottom: 24,
+    lineHeight: 36,
   },
 
-  // Estilo do botão primário (azul sólido)
+  // 5.6 Subtítulo do módulo
+  subtituloModulo: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#93c5fd',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+
+  // 5.7 Nome do professor
+  autorModulo: {
+    fontSize: 13,
+    color: '#cbd5e1',           // cinza azulado claro
+    fontStyle: 'italic',
+  },
+
+  // 5.8 Card de botões de navegação (rodapé da tela)
+  cardAcoes: {
+    backgroundColor: '#ffffff',
+    borderRadius: 18,
+    padding: 20,
+    marginTop: 4,
+    // Sombra iOS
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    // Sombra Android
+    elevation: 3,
+  },
+
+  // 5.9 Título do card de ações
+  tituloAcoes: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#1e3a5f',
+    marginBottom: 14,
+    textAlign: 'center',
+  },
+
+  // 5.10 Botão primário (azul sólido)
   botaoPrimario: {
-    width: '100%',           // largura total do container pai
-    backgroundColor: '#2563eb', // azul forte
-    paddingVertical: 14,     // espaçamento vertical interno
+    width: '100%',
+    backgroundColor: '#2563eb',
+    paddingVertical: 14,
     borderRadius: 12,
-    marginBottom: 12,        // espaço entre os dois botões
+    marginBottom: 10,
   },
 
-  // Estilo do texto dentro do botão primário
+  // 5.11 Texto do botão primário
   textoBotaoPrimario: {
-    color: '#ffffff',    // texto branco
+    color: '#ffffff',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
 
-  // Estilo do botão secundário (azul claro)
+  // 5.12 Botão secundário (azul claro)
   botaoSecundario: {
     width: '100%',
-    backgroundColor: '#dbeafe', // azul bem claro
+    backgroundColor: '#dbeafe',
     paddingVertical: 14,
     borderRadius: 12,
   },
 
-  // Estilo do texto dentro do botão secundário
+  // 5.13 Texto do botão secundário
   textoBotaoSecundario: {
-    color: '#1d4ed8',    // azul médio
+    color: '#1d4ed8',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
+
 });
