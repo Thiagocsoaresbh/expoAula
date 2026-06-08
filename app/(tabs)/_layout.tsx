@@ -75,6 +75,20 @@ export default function TabLayout() {
         }}
       />
 
+      {/* Aba "Produtos" — aponta para o arquivo app/(tabs)/produtos.tsx
+          Essa aba é o ponto de entrada do módulo de Persistência de Dados
+          A tela de cadastro (novoProduto.tsx) é acessada por navegação de pilha */}
+      <Tabs.Screen
+        name="produtos"
+        options={{
+          title: 'Produtos',
+          tabBarIcon: ({ color }) => (
+            // Ícone de caixa/arquivo — representa produtos cadastrados
+            <IconSymbol size={28} name="archivebox.fill" color={color} />
+          ),
+        }}
+      />
+
     </Tabs>
   );
 }
