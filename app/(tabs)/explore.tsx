@@ -211,6 +211,14 @@ export default function ExploreScreen() {
           </Text>
         </View>
 
+        {/* ── SEPARADOR DE SEÇÃO ─────────────────────────────────────── */}
+        {/* Divide visualmente os exemplos de componentes UI dos exemplos de persistência */}
+        <View style={styles.separador}>
+          <View style={styles.separadorLinha} />
+          <Text style={styles.separadorTexto}>Persistência de dados</Text>
+          <View style={styles.separadorLinha} />
+        </View>
+
         {/* ── CARD 6: Serialização na prática ────────────────────────── */}
         <View style={styles.card}>
           <Text style={styles.cardTitulo}>Serialização na prática</Text>
@@ -581,5 +589,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#ef4444',
     paddingVertical: 14,
     borderRadius: 12,
+  },
+
+  // Separador visual entre seções da tela
+  separador: {
+    flexDirection: 'row',   // linha + texto + linha lado a lado
+    alignItems: 'center',
+    marginBottom: 16,
+    marginTop: 4,
+  },
+
+  // Linha horizontal dos lados do texto
+  separadorLinha: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#d1d5db',
+  },
+
+  // Texto central do separador
+  separadorTexto: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#6b7280',
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    marginHorizontal: 12,
   },
 });

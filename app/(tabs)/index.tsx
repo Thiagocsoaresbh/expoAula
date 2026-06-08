@@ -75,10 +75,12 @@ export default function HomeScreen() {
         descricao="1. AsyncStorage → persistência local com chave-valor.&#10;2. SQLite → modelo relacional.&#10;3. Realm → modelo orientado a objetos.&#10;4. MongoDB → modelo NoSQL com armazenamento remoto."
       />
 
-      {/* 4.4 Conceito de serialização */}
+      {/* 4.4 Conceito de serialização — com botão que leva ao demo ao vivo */}
       <BlocoAula
         titulo="Serialização"
         descricao="Serialização é transformar um objeto (espalhado na memória) em um formato contíguo para armazenar ou transmitir. No React Native usamos JSON — ex: JSON.stringify(objeto) para serializar e JSON.parse(texto) para de-serializar."
+        textoBotao="Ver JSON.stringify/parse ao vivo →"
+        onBotaoPress={() => router.push('/explore')}
       />
 
       {/* 4.5 Conceito de persistência */}
@@ -87,10 +89,12 @@ export default function HomeScreen() {
         descricao="Uma estrutura persistente é aquela capaz de guardar seu estado em meio não volátil (disco). No React Native, como o ambiente móvel exige operações assíncronas, usaremos async/await para não travar a interface."
       />
 
-      {/* 4.6 O que é AsyncStorage */}
+      {/* 4.6 O que é AsyncStorage — com botão que leva ao demo ao vivo */}
       <BlocoAula
         titulo="AsyncStorage"
         descricao="É a forma mais simples de persistência no React Native. Funciona com pares chave-valor, parecido com uma chave primária num banco. Os objetos precisam ser serializados em JSON antes de serem guardados."
+        textoBotao="Testar setItem/getItem ao vivo →"
+        onBotaoPress={() => router.push('/explore')}
       />
 
       {/* 4.7 O que vamos construir na prática */}
