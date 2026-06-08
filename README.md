@@ -54,5 +54,17 @@ Join our community of developers creating universal apps.
 If gets a error as start, like > There was a problem running...
 
 ```bash
+
 npx expo start --tunnel
+
+```
+
+## Resume for install and update commands
+
+```bash
+
+cd expoAula
+npm install
+npx expo start
+
 ```

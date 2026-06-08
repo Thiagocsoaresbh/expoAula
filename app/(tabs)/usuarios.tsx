@@ -6,8 +6,8 @@
 
 // Importa o componente Cartao que criamos na pasta components
 // Ele vai ser reutilizado para exibir as informações de cada usuário
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Cartao } from '../../components/cartao';
-
 // ── PASSO 2 — Dados ──────────────────────────────────────────────────────────
 
 // 2.1 Array com os dados dos usuários
