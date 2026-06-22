@@ -4,21 +4,10 @@
 // Os passos marcados com (→ Cartao.tsx) indicam que há continuação no componente.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// ── PASSO 1 — Imports ────────────────────────────────────────────────────────
-
-// 1.1 FlatList → componente do React Native ideal para renderizar listas
-//     É mais eficiente que o ScrollView para listas porque só renderiza
-//     os itens que estão visíveis na tela no momento (lazy rendering)
-// 1.2 StyleSheet → para criar e organizar os estilos
-// 1.3 Text → para exibir textos
-// 1.4 View → container para agrupar e organizar elementos
+// Importa o componente Cartao que criamos na pasta components
+// Ele vai ser reutilizado para exibir as informações de cada usuário
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-
-// 1.5 Importa o componente Cartao que criamos para exibir cada usuário
-//     ⚠ Antes de continuar aqui, veja o FLUXO DE CONSTRUÇÃO em:
-//     → components/Cartao.tsx (construído em paralelo a este arquivo)
-import { Cartao } from '../../components/Cartao';
-
+import { Cartao } from '../../components/cartao';
 // ── PASSO 2 — Dados ──────────────────────────────────────────────────────────
 
 // 2.1 Array com os dados dos usuários
