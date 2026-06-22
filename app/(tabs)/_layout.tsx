@@ -89,6 +89,20 @@ export default function TabLayout() {
         }}
       />
 
+      {/* Aba "Remoto" — aponta para o arquivo app/(tabs)/remoto.tsx
+          Ponto de entrada do módulo de Conexão Remota (Fetch + Axios)
+          A lógica de rede fica em dados/ApiRemota.ts */}
+      <Tabs.Screen
+        name="remoto"
+        options={{
+          title: 'Remoto',
+          tabBarIcon: ({ color }) => (
+            // Ícone de wifi — representa conexão com a rede/internet
+            <IconSymbol size={28} name="wifi" color={color} />
+          ),
+        }}
+      />
+
     </Tabs>
   );
 }
